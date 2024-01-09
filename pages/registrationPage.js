@@ -1,6 +1,6 @@
 import { registrationLocators } from "../locators/registrationLocators";
 
-export class registrationPage {
+export class RegistrationPage {
     constructor(page){
         this.page = page;
         this.firstnameField = registrationLocators.firstnameField;
@@ -21,12 +21,13 @@ export class registrationPage {
         this.lastNameError = registrationLocators.lastNameError;
         this.firstNameError = registrationLocators.firstNameError;
     }
-    async fillRegistrationForm(firstName, lastName, email, password) {
+    async fillRegistrationForm(firstName, lastName, email, password, pswdConfirm) {
         await this.page.fill(registrationLocators.firstnameField, firstName);
         await this.page.fill(registrationLocators.lastnameField, lastName);
         await this.page.fill(registrationLocators.emailField, email);
         await this.page.fill(registrationLocators.passwordField, password);
-        // Add more form-filling actions as needed
+        await this.page.fill(registrationLocators.confirmField, pswdConfirm);
+
     }
 
     async clickCreateAccountButton() {
@@ -35,5 +36,15 @@ export class registrationPage {
 
     async getPasswordStrengthText() {
         return await this.page.textContent(registrationLocators.strengthText);
+    }
+    async getMandatoryFieldsLabels() {
+        const labels = [
+            await this.page.textContent(firstNameLabel),
+            await this.page.textContent(lastNameLabel),
+            await this.page.textContent(emailLabel),
+            await this.page.textContent(passwordLabel),
+            await this.page.textContent(passwordStrengthLabel)
+        ];
+        return labels;
     }
 }
