@@ -37,14 +37,25 @@ export class RegistrationPage {
     async getPasswordStrengthText() {
         return await this.page.textContent(registrationLocators.strengthText);
     }
-    async getMandatoryFieldsLabels() {
-        const labels = [
-            await this.page.textContent(firstNameLabel),
-            await this.page.textContent(lastNameLabel),
-            await this.page.textContent(emailLabel),
-            await this.page.textContent(passwordLabel),
-            await this.page.textContent(passwordStrengthLabel)
-        ];
-        return labels;
-    }
+ // Dentro de RegistrationPage
+    async getMandatoryFieldsAriaRequired() {
+        const ariaRequiredValues = [
+        await this.page.getAttribute(this.firstnameField, 'aria-required'),
+        await this.page.getAttribute(this.lastnameField, 'aria-required'),
+        await this.page.getAttribute(this.emailField, 'aria-required'),
+        await this.page.getAttribute(this.passwordField, 'aria-required'),
+    ];
+    return ariaRequiredValues;
+}
+async getLabelText(labelText) {
+    const labelValues = {
+        firstName: await this.page.textContent(registrationLocators.firstNameLabel),
+        lastName: await this.page.textContent(registrationLocators.lastNameLabel),
+        email: await this.page.textContent(registrationLocators.emailLabel),
+        password: await this.page.textContent(registrationLocators.passwordLabel),
+        // Puedes agregar otros labels según sea necesario
+    };
+
+    return labelValues;}
+
 }

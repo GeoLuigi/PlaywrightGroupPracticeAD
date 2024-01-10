@@ -9,7 +9,7 @@ export const registrationLocators = {
     firstNameLabel: 'label:has-text("First Name")',
     lastNameLabel: 'label:has-text("Last Name")',
     emailLabel: 'label:has-text("Email")',
-    passwordLabel: 'label:has-text("Password*")',
+    passwordLabel: 'label:has-text("Password")',
     passwordStrengthLabel: 'label:has-text("Password Strength: No Password")',
     passwordConfirmationError: '#password-confirmation-error',
     passwordError: '#password-error',

@@ -1,5 +1,5 @@
 // registrationTest.js
-import { test } from '@playwright/test';
+import { test , expect } from '@playwright/test';
 import { RegistrationPage } from '../pages/registrationPage';
 import { generateRandomFirstName, generateRandomLastName, generateRandomEmail, generateRandomPassword } from '../helpers/faker';
 
@@ -19,6 +19,19 @@ test('First Test', async ({ page }) => {
 test('ECA-3 | Verify Presence of Mandatory Fields in Personal Information Section',async({ page }) => {
     const registrationPage = new RegistrationPage(page);
     await page.goto('https://magento.softwaretestingboard.com/customer/account/create/'); 
+    // Obtener los valores de aria-required
+    
+    const ariaRequiredValues = await registrationPage.getMandatoryFieldsAriaRequired();
+    // Verificar que al menos un campo sea requerido
+    expect(ariaRequiredValues.some(value => value === 'true')).toBe(true);
+    // Obtener todos los textos de los labels utilizando un solo método
+    const labelValues = await registrationPage.getLabelText();
+
+    // Verificar que los textos de los labels sean correctos
+    expect(labelValues.firstName).toBe('First Name');
+    expect(labelValues.lastName).toBe('Last Name');
+    expect(labelValues.email).toBe('Email');
+    expect(labelValues.password).toBe('Password');
 })
 
 test('ECA-4 | Verify Mandatory Email Field in Sign-in Information Section', async({ page }) => {
