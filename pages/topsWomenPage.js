@@ -20,6 +20,6 @@ export class TopsWomenPage {
     }
 
     async clickOnRemoveJacketsFilterIcon() {
-        await this.page.getByRole('link', { name: this.jacketsFilter }).click()
+        await this.page.getByRole('link', { name: this.removeJacketsFilterIcon }).click()
     }
 }

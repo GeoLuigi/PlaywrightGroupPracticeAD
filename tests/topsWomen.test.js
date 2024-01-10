@@ -4,14 +4,14 @@ import { TopsWomenPage } from '../pages/topsWomenPage'
 
 test('ECA-38 | Verify the correct addition of one filter', async ({ page }) => {
 
-    const topWomenPage = new TopsWomenPage(page)
-    const url = topWomenPage.url
+    const topsWomenPage = new TopsWomenPage(page)
+    const url = topsWomenPage.url
 
     await page.goto(url)
-    await topWomenPage.clickOnCategoryTab()
-    await topWomenPage.clickOnJacketsFilter()
+    await topsWomenPage.clickOnCategoryTab()
+    await topsWomenPage.clickOnJacketsFilter()
 
-    const subtitleElement = page.getByRole('tab', { name: topWomenPage.filterSubtitle })
+    const subtitleElement = page.getByRole('tab', { name: topsWomenPage.filterSubtitle })
     const subtitleText = await subtitleElement.innerText()
 
     expect(page.url()).toBe(url + '?cat=23', 'URL is not correct')
