@@ -5,7 +5,7 @@ import { TopsWomenPage } from '../pages/topsWomenPage'
 test('ECA-38 | Verify the correct addition of one filter', async ({ page }) => {
 
     const topsWomenPage = new TopsWomenPage(page)
-    const url = topsWomenPage.url
+    const url = topsWomenPage.getUrl()
 
     await page.goto(url)
     await topsWomenPage.clickOnCategoryTab()
@@ -20,7 +20,7 @@ test('ECA-38 | Verify the correct addition of one filter', async ({ page }) => {
 
 test('ECA-39 | Verify the successful removal of one filter', async ({ page }) => {
     const topsWomenPage = new TopsWomenPage(page)
-    const url = topsWomenPage.url
+    const url = topsWomenPage.getUrl()
 
     await page.goto(url)
     await topsWomenPage.clickOnCategoryTab()

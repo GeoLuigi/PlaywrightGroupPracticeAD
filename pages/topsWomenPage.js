@@ -1,25 +1,24 @@
-import { topsWomenLocators } from "../locators/topsWomenLocators"
+import { topsWomenLocators as locators} from "../locators/topsWomenLocators"
 
 export class TopsWomenPage {
     constructor(page) {
         this.page = page
+        this.url = locators.url
+    }
 
-        this.url = topsWomenLocators.url
-        this.categoryTab = topsWomenLocators.categoryTab
-        this.jacketsFilter = topsWomenLocators.jacketsFilter
-        this.filterSubtitle = topsWomenLocators.filterSubtitle
-        this.removeJacketsFilterIcon = topsWomenLocators.removeJacketsFilterIcon
+    getUrl() {
+        return this.url
     }
 
     async clickOnCategoryTab() {
-        await this.page.getByRole('tab', { name: this.categoryTab }).click()
+        await this.page.getByRole('tab', { name: locators.categoryTab}).click()
     }
 
     async clickOnJacketsFilter() {
-        await this.page.getByRole('link', { name: this.jacketsFilter }).click()
+        await this.page.getByRole('link', { name: locators.jacketsFilter }).click()
     }
 
     async clickOnRemoveJacketsFilterIcon() {
-        await this.page.getByRole('link', { name: this.removeJacketsFilterIcon }).click()
+        await this.page.getByRole('link', { name: locators.removeJacketsFilterIcon }).click()
     }
 }
