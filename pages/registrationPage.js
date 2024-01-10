@@ -3,6 +3,7 @@ import { registrationLocators } from "../locators/registrationLocators";
 export class RegistrationPage {
     constructor(page){
         this.page = page;
+        //this.url = 'https://magento.softwaretestingboard.com/customer/account/create/';
         this.firstnameField = registrationLocators.firstnameField;
         this.lastnameField = registrationLocators.lastnameField;
         this.emailField = registrationLocators.emailField;
@@ -22,20 +23,20 @@ export class RegistrationPage {
         this.firstNameError = registrationLocators.firstNameError;
     }
     async fillRegistrationForm(firstName, lastName, email, password, pswdConfirm) {
-        await this.page.fill(registrationLocators.firstnameField, firstName);
-        await this.page.fill(registrationLocators.lastnameField, lastName);
-        await this.page.fill(registrationLocators.emailField, email);
-        await this.page.fill(registrationLocators.passwordField, password);
-        await this.page.fill(registrationLocators.confirmField, pswdConfirm);
+        await this.page.fill(this.firstnameField, firstName);
+        await this.page.fill(this.lastnameField, lastName);
+        await this.page.fill(this.emailField, email);
+        await this.page.fill(this.passwordField, password);
+        await this.page.fill(this.confirmField, pswdConfirm);
 
     }
 
     async clickCreateAccountButton() {
-        await this.page.click(registrationLocators.createAccountButton);
+        await this.page.click(this.createAccountButton);
     }
 
     async getPasswordStrengthText() {
-        return await this.page.textContent(registrationLocators.strengthText);
+        return await this.page.textContent(this.strengthText);
     }
  // Dentro de RegistrationPage
     async getMandatoryFieldsAriaRequired() {
@@ -47,15 +48,37 @@ export class RegistrationPage {
     ];
     return ariaRequiredValues;
 }
-async getLabelText(labelText) {
+    async getLabelText(labelText) {
     const labelValues = {
-        firstName: await this.page.textContent(registrationLocators.firstNameLabel),
-        lastName: await this.page.textContent(registrationLocators.lastNameLabel),
-        email: await this.page.textContent(registrationLocators.emailLabel),
-        password: await this.page.textContent(registrationLocators.passwordLabel),
+        firstName: await this.page.textContent(this.firstNameLabel),
+        lastName: await this.page.textContent(this.lastNameLabel),
+        email: await this.page.textContent(this.emailLabel),
+        password: await this.page.textContent(this.passwordLabel),
         // Puedes agregar otros labels según sea necesario
     };
-
+    
     return labelValues;}
-
+    async getErrorMessages() {
+        const errorValues = {
+            firstNameErrorRequired: await this.page.textContent(this.firstNameError),
+            lastNameErrorRequired: await this.page.textContent(this.lastNameError),
+            Invalidemail: await this.page.textContent(this.emailError),
+            Invalidpassword: await this.page.textContent(this.passwordError),
+            passwordConfirmationError: await this.page.textContent(this.passwordConfirmationError),
+            // Agrega otros mensajes de error según sea necesario
+        }
+        return errorValues;
+    }
+    async getPasswordStrengthText() {
+        // Utiliza el selector específico para el elemento span
+        const passwordStrengthLabel = await this.page.textContent(this.passwordStrengthLabel);
+        return passwordStrengthLabel.trim(); // Trima cualquier espacio en blanco alrededor del texto
+    }
+    async getPasswordErrorMessage() {
+        await this.page.waitForSelector(this.passwordError);
+        const passwordErrorMessage = await this.page.textContent(this.passwordError);
+        return passwordErrorMessage;
+    }
+    
+    
 }

@@ -10,12 +10,13 @@ export const registrationLocators = {
     lastNameLabel: 'label:has-text("Last Name")',
     emailLabel: 'label:has-text("Email")',
     passwordLabel: 'label:has-text("Password")',
-    passwordStrengthLabel: 'label:has-text("Password Strength: No Password")',
+    passwordStrengthLabel: '#password-strength-meter-label',
     passwordConfirmationError: '#password-confirmation-error',
     passwordError: '#password-error',
     emailError: '#email_address-error',
     lastNameError: '#lastname-error',
     firstNameError: '#firstname-error',
+    
 }
 /* import { test, expect } from '@playwright/test';
 
