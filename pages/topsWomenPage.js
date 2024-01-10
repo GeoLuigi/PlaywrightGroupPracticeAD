@@ -37,4 +37,8 @@ export class TopsWomenPage {
     async clickOnMaterialFilter() {
         await this.page.getByRole('link', { name: locators.materialFilter }).click()
     }
+
+    async clickOnClearAllFilters() {
+        await this.page.getByRole('link', { name: locators.clearAllFilters }).click()
+    }
 }

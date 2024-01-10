@@ -50,4 +50,17 @@ test.describe('Tops Women Page tests', () => {
 
         expect(page.url()).toBe(url + '?cat=23&material=33&price=70-80', 'Incorrect application of filters')
     })
+
+    test('ECA-41 | Verify the proper removal of all filters', async ({ page }) => {
+
+        await topsWomenPage.clickOnCategoryTab()
+        await topsWomenPage.clickOnJacketsFilter()
+        await topsWomenPage.clickOnPriceTab()
+        await topsWomenPage.clickOnPriceFilter()
+        await topsWomenPage.clickOnMaterialTab()
+        await topsWomenPage.clickOnMaterialFilter()
+        await topsWomenPage.clickOnClearAllFilters()
+
+        expect(page.url()).toBe(url, 'Incorrect removal of all filters')
+    })
 })
