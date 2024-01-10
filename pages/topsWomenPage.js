@@ -41,4 +41,8 @@ export class TopsWomenPage {
     async clickOnClearAllFilters() {
         await this.page.getByRole('link', { name: locators.clearAllFilters }).click()
     }
+
+    async getSortingList() {
+        return this.page.locator(locators.sortingList).nth(0)
+    }
 }
