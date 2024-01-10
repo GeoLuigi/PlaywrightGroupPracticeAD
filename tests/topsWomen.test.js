@@ -18,8 +18,7 @@ test.describe('Tops Women Page tests', () => {
         await topsWomenPage.clickOnCategoryTab()
         await topsWomenPage.clickOnJacketsFilter()
 
-        const subtitleElement = page.getByRole('tab', { name: locators.filterSubtitle })
-        const subtitleText = await subtitleElement.innerText()
+        const subtitleText = await (page.getByRole('tab', { name: locators.filterSubtitle })).innerText()
 
         expect(page.url()).toBe(url + '?cat=23', 'URL is not correct')
         expect(subtitleText).toContain("Now Shopping by")
@@ -30,8 +29,7 @@ test.describe('Tops Women Page tests', () => {
         await topsWomenPage.clickOnCategoryTab()
         await topsWomenPage.clickOnJacketsFilter()
 
-        const subtitleElement = page.getByRole('tab', { name: locators.filterSubtitle })
-        const subtitleText = await subtitleElement.innerText()
+        const subtitleText = await (page.getByRole('tab', { name: locators.filterSubtitle })).innerText()
 
         expect(page.url()).toBe(url + '?cat=23', 'URL is not correct')
         expect(subtitleText).toContain("Now Shopping by")
