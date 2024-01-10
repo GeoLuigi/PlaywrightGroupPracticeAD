@@ -2,37 +2,42 @@ import { test, expect } from '@playwright/test'
 import { topsWomenLocators as locators } from '../locators/topsWomenLocators'
 import { TopsWomenPage } from '../pages/topsWomenPage'
 
-test('ECA-38 | Verify the correct addition of one filter', async ({ page }) => {
+test.describe('Tops Women Page tests', () => {
 
-    const topsWomenPage = new TopsWomenPage(page)
-    const url = topsWomenPage.getUrl()
+    let topsWomenPage
+    let url
 
-    await page.goto(url)
-    await topsWomenPage.clickOnCategoryTab()
-    await topsWomenPage.clickOnJacketsFilter()
+    test.beforeEach(async ({ page }) => {
+        topsWomenPage = new TopsWomenPage(page)
+        url = topsWomenPage.getUrl()
+        await page.goto(url)
+      })
 
-    const subtitleElement = page.getByRole('tab', { name: locators.filterSubtitle })
-    const subtitleText = await subtitleElement.innerText()
+    test('ECA-38 | Verify the correct addition of one filter', async ({ page }) => {
 
-    expect(page.url()).toBe(url + '?cat=23', 'URL is not correct')
-    expect(subtitleText).toContain("Now Shopping by")
-})
+        await topsWomenPage.clickOnCategoryTab()
+        await topsWomenPage.clickOnJacketsFilter()
 
-test('ECA-39 | Verify the successful removal of one filter', async ({ page }) => {
-    const topsWomenPage = new TopsWomenPage(page)
-    const url = topsWomenPage.getUrl()
+        const subtitleElement = page.getByRole('tab', { name: locators.filterSubtitle })
+        const subtitleText = await subtitleElement.innerText()
 
-    await page.goto(url)
-    await topsWomenPage.clickOnCategoryTab()
-    await topsWomenPage.clickOnJacketsFilter()
+        expect(page.url()).toBe(url + '?cat=23', 'URL is not correct')
+        expect(subtitleText).toContain("Now Shopping by")
+    })
 
-    const subtitleElement = page.getByRole('tab', { name: locators.filterSubtitle })
-    const subtitleText = await subtitleElement.innerText()
+    test('ECA-39 | Verify the successful removal of one filter', async ({ page }) => {
 
-    expect(page.url()).toBe(url + '?cat=23', 'URL is not correct')
-    expect(subtitleText).toContain("Now Shopping by")
+        await topsWomenPage.clickOnCategoryTab()
+        await topsWomenPage.clickOnJacketsFilter()
 
-    await topsWomenPage.clickOnRemoveJacketsFilterIcon()
+        const subtitleElement = page.getByRole('tab', { name: locators.filterSubtitle })
+        const subtitleText = await subtitleElement.innerText()
 
-    expect(page.url()).toBe(url, 'URL is not correct')
+        expect(page.url()).toBe(url + '?cat=23', 'URL is not correct')
+        expect(subtitleText).toContain("Now Shopping by")
+
+        await topsWomenPage.clickOnRemoveJacketsFilterIcon()
+
+        expect(page.url()).toBe(url, 'URL is not correct')
+    })
 })
