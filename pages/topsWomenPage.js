@@ -21,4 +21,20 @@ export class TopsWomenPage {
     async clickOnRemoveJacketsFilterIcon() {
         await this.page.getByRole('link', { name: locators.removeJacketsFilterIcon }).click()
     }
+
+    async clickOnPriceTab() {
+        await this.page.getByRole('tab', { name: locators.priceTab }).click()
+    }
+
+    async clickOnPriceFilter() {
+        await this.page.getByRole('link', { name: locators.priceFilter }).click()
+    }
+
+    async clickOnMaterialTab() {
+        await this.page.getByRole('tab', { name: locators.materialTab }).click()
+    }
+
+    async clickOnMaterialFilter() {
+        await this.page.getByRole('link', { name: locators.materialFilter }).click()
+    }
 }
