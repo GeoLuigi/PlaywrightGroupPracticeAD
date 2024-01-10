@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
+import { topsWomenLocators as locators } from '../locators/topsWomenLocators'
 import { TopsWomenPage } from '../pages/topsWomenPage'
-
 
 test('ECA-38 | Verify the correct addition of one filter', async ({ page }) => {
 
@@ -11,7 +11,7 @@ test('ECA-38 | Verify the correct addition of one filter', async ({ page }) => {
     await topsWomenPage.clickOnCategoryTab()
     await topsWomenPage.clickOnJacketsFilter()
 
-    const subtitleElement = page.getByRole('tab', { name: topsWomenPage.filterSubtitle })
+    const subtitleElement = page.getByRole('tab', { name: locators.filterSubtitle })
     const subtitleText = await subtitleElement.innerText()
 
     expect(page.url()).toBe(url + '?cat=23', 'URL is not correct')
@@ -26,7 +26,7 @@ test('ECA-39 | Verify the successful removal of one filter', async ({ page }) =>
     await topsWomenPage.clickOnCategoryTab()
     await topsWomenPage.clickOnJacketsFilter()
 
-    const subtitleElement = page.getByRole('tab', { name: topsWomenPage.filterSubtitle })
+    const subtitleElement = page.getByRole('tab', { name: locators.filterSubtitle })
     const subtitleText = await subtitleElement.innerText()
 
     expect(page.url()).toBe(url + '?cat=23', 'URL is not correct')
