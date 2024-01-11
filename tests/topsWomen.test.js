@@ -57,4 +57,22 @@ test.describe('Tops Women Page tests', () => {
 
         expect(page.url()).toBe(url, 'Incorrect removal of all filters')
     })
+
+    test('ECA-44 | Verify the successful addition of items to the cart', async ({ page }) => {
+
+        const waitTime = 1500
+
+        await topsWomenPage.selectAntoniaClothing()
+        await page.waitForTimeout(waitTime)
+        await topsWomenPage.selectZoeClothing()
+        await page.waitForTimeout(waitTime)
+        await topsWomenPage.selectBellaClothing()
+        await page.waitForTimeout(waitTime)
+
+        await topsWomenPage.clickOnAddToCartBtn()
+        await page.waitForTimeout(waitTime)
+
+        const cartItemCount = await page.innerText('.count')
+        expect(cartItemCount).toBe('3')
+    })
 })

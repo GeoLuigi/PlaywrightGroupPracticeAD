@@ -60,4 +60,11 @@ export class TopsWomenPage {
         await this.page.locator('li').filter({ hasText: locators.bellaTankClothingCard }).locator('button').click();
     }
 
+    async clickOnAddToCartBtn() {
+        await this.page.click(locators.addToCartBtn)
+    }
+
+    async clickOnCheckoutBtn() {
+        await this.page.click(locators.checkoutBtn)
+    }
 }

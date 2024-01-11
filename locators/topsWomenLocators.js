@@ -13,7 +13,11 @@ export const topsWomenLocators = {
     // Items
     antoniaClothingCard: 'Antonia Racer Tank Rating: 60',
     zoeTankClothingCard : 'Zoe Tank Rating: 53% 3',
-    bellaTankClothingCard : 'Bella Tank Rating: 80% 2'
+    bellaTankClothingCard : 'Bella Tank Rating: 80% 2',
+
+    // Buttons
+    addToCartBtn: '.action.showcart',
+    checkoutBtn: '#top-cart-btn-checkout'
 }
 
 Object.freeze(topsWomenLocators);
