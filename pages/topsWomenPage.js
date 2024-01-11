@@ -41,4 +41,23 @@ export class TopsWomenPage {
     async clickOnClearAllFilters() {
         await this.page.getByRole('link', { name: locators.clearAllFilters }).click()
     }
+
+    async selectAntoniaClothing() {
+        await this.page.locator('li').filter({ hasText: locators.antoniaClothingCard }).getByLabel('S', { exact: true }).click();
+        await this.page.locator('li').filter({ hasText: locators.antoniaClothingCard }).getByLabel('Black').click();
+        await this.page.locator('li').filter({ hasText: locators.antoniaClothingCard }).locator('button').click();
+    }
+
+    async selectZoeClothing() {
+        await this.page.locator('li').filter({ hasText: locators.zoeTankClothingCard }).getByLabel('XS', { exact: true }).click();
+        await this.page.locator('li').filter({ hasText: locators.zoeTankClothingCard }).getByLabel('Yellow').click();
+        await this.page.locator('li').filter({ hasText: locators.zoeTankClothingCard }).locator('button').click();
+    }
+
+    async selectBellaClothing() {
+        await this.page.locator('li').filter({ hasText: locators.bellaTankClothingCard }).getByLabel('XS', { exact: true }).click();
+        await this.page.locator('li').filter({ hasText: locators.bellaTankClothingCard }).getByLabel('Blue').click();
+        await this.page.locator('li').filter({ hasText: locators.bellaTankClothingCard }).locator('button').click();
+    }
+
 }

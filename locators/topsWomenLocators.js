@@ -8,7 +8,12 @@ export const topsWomenLocators = {
     priceFilter: '$70.00 - $79.99 (3 item )',
     materialTab: 'Material ',
     materialFilter: 'Cotton (1 item )',
-    clearAllFilters: 'Clear All'
+    clearAllFilters: 'Clear All',
+
+    // Items
+    antoniaClothingCard: 'Antonia Racer Tank Rating: 60',
+    zoeTankClothingCard : 'Zoe Tank Rating: 53% 3',
+    bellaTankClothingCard : 'Bella Tank Rating: 80% 2'
 }
 
 Object.freeze(topsWomenLocators);
