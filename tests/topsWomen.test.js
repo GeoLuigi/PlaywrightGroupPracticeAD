@@ -69,10 +69,24 @@ test.describe('Tops Women Page tests', () => {
         await topsWomenPage.selectBellaClothing()
         await page.waitForTimeout(waitTime)
 
-        await topsWomenPage.clickOnAddToCartBtn()
+        await topsWomenPage.clickOnCartBtn()
         await page.waitForTimeout(waitTime)
 
         const cartItemCount = await page.innerText('.count')
         expect(cartItemCount).toBe('3')
+    })
+
+    test('ECA-51 | Verify that clicking [Proceed to Checkout] correctly redirects to the shipping page', async ({ page }) => {
+
+        const waitTime = 2000
+
+        await topsWomenPage.selectAntoniaClothing()
+        await page.waitForTimeout(waitTime)
+        await topsWomenPage.clickOnCartBtn()
+        await page.waitForTimeout(waitTime)
+        await topsWomenPage.clickOnCheckoutBtn()
+        await page.waitForTimeout(waitTime)
+
+        expect(page.url()).toBe('https://magento.softwaretestingboard.com/checkout/#shipping', 'Incorrect redirection')
     })
 })

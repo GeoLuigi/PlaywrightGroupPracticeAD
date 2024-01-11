@@ -16,7 +16,7 @@ export const topsWomenLocators = {
     bellaTankClothingCard : 'Bella Tank Rating: 80% 2',
 
     // Buttons
-    addToCartBtn: '.action.showcart',
+    cartBtn: '.action.showcart',
     checkoutBtn: '#top-cart-btn-checkout'
 }
 
