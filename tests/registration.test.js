@@ -55,6 +55,7 @@ test('ECA-6 | Verify Password Field and Dynamic Strength Indicator', async({ pag
     
     await registrationPage.fillRegistrationForm('','','','Hola','');
     passwordStrengthLabel = await registrationPage.getPasswordStrengthText();
+    
     await page.waitForTimeout(1000);
     expect(passwordStrengthLabel).toBe('Weak');
     
@@ -108,10 +109,10 @@ test('ECA-10 | Verify Clear Error Messages for Blank/Missing Fields After Clicki
     expect(requiredFields.passwordConfirmationError).toBe('This is a required field.');
     
 })
+
 test('ECA-11 | Verify Successful Registration and Redirection to Profile Page', async({ page }) => {
     await registrationPage.fillRegistrationForm(firstName,lastName,email,'.Hola123','.Hola123');
     await registrationPage.clickCreateAccountButton();
     const currentUrl = page.url();
     expect(currentUrl).toBe('https://magento.softwaretestingboard.com/customer/account/');
 })
-
