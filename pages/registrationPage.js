@@ -57,7 +57,8 @@ export class RegistrationPage {
         // Puedes agregar otros labels según sea necesario
     };
     
-    return labelValues;}
+    return labelValues;
+    }
     async getErrorMessages() {
         const errorValues = {
             firstNameErrorRequired: await this.page.textContent(this.firstNameError),
