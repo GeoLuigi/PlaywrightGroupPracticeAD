@@ -2,7 +2,7 @@ import { test , expect } from '@playwright/test';
 import { CartPage } from '../pages/cartPage';
 import { generateRandomFirstName, generateRandomLastName, generateRandomEmail, generateRandomPassword, generateRandomInvalidEmail } from '../helpers/faker';
 import { LoginPage } from '../pages/loginPage';
-import []
+
     const validEmail = 'Tester99@gmail.com'
     const password = '.Tester99'
     let cartPage;
@@ -17,8 +17,8 @@ import []
         await loginPage.clickSignInButton();
 });
 
-test('ECA-3 | Verify Mandatory Fields on Registration Page form',async({ page }) => { 
-    
+test('ECA-3 | Verify Mandatory Fields on Registration Page form',async({ page }) => {
+
     // Obtener los valores de aria-required
     const ariaRequiredValues = await registrationPage.getMandatoryFieldsAriaRequired();
     // Verificar que al menos un campo sea requerido
