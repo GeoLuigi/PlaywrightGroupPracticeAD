@@ -57,4 +57,14 @@ test.describe('Tops Women Page tests', () => {
 
         expect(page.url()).toBe(url, 'Incorrect removal of all filters')
     })
+
+    test('ECA-46 | Verify that the "Sort By" dropdown contains the correct options', async () => {
+
+        const dropdown = await topsWomenPage.getSortingList()
+        const optionElements = await dropdown.innerText()
+
+        expect(optionElements).toContain("Position")
+        expect(optionElements).toContain("Product Name")
+        expect(optionElements).toContain("Price")
+    })
 })

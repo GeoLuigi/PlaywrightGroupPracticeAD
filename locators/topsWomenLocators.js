@@ -8,7 +8,8 @@ export const topsWomenLocators = {
     priceFilter: '$70.00 - $79.99 (3 item )',
     materialTab: 'Material ',
     materialFilter: 'Cotton (1 item )',
-    clearAllFilters: 'Clear All'
+    clearAllFilters: 'Clear All',
+    sortingList: '#sorter'
 }
 
 Object.freeze(topsWomenLocators);
