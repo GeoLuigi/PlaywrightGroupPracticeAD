@@ -6,4 +6,6 @@ export const cartLocators = {
     discountAmount: '.amount[data-th="Discount"] .price',
     shippingAmount: '.amount[data-th="Shipping"] .price',
     orderTotal: '.amount[data-th="Order Total"] .price',
+    editLink: '.cart.item .col.item a.product-item-photo',
+    editButton: '.action.action-edit',
 };

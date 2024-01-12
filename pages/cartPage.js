@@ -7,9 +7,11 @@ export class CartPage {
         this.multiCheckoutLink = cartLocators.multiCheckoutLink;
         this.itemPrice = cartLocators.itemPrice;
         this.cartSubTotal = cartLocators.cartSubTotal;
-        this.discountAmount = cartLocators.discountAmount
-        this.shippingAmount = cartLocators.shippingAmount
-        this.orderTotal = cartLocators.orderTotal
+        this.discountAmount = cartLocators.discountAmount;
+        this.shippingAmount = cartLocators.shippingAmount;
+        this.orderTotal = cartLocators.orderTotal;
+        this.editLink = cartLocators.editLink;
+        this.editButton = cartLocators.editButton;
     }
 
     async clickProceedToCheckoutButton() {
@@ -55,5 +57,14 @@ export class CartPage {
         }
         const orderTotalText = await orderTotalElement.textContent();
         return parseFloat(orderTotalText.replace('$', '')) || 0;
+    }
+
+    async getEditLink() {
+        const itemLinkElement = await this.page.$(this.editLink);
+        return await itemLinkElement.getAttribute('href');
+    }
+
+    async clickEditLink(){
+        await this.page.click(this.editButton);
     }
 }

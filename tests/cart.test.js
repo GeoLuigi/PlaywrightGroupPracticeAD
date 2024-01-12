@@ -66,7 +66,13 @@ test('ECA-23 | Verify Display of Purchased Items on Shopping Cart Page',async({ 
 })
 
 test('ECA-24 | Verify Functionality of Item Action [Edit] Button',async({ page }) => {
-
+    
+    await page.waitForTimeout(2000)
+    const editLink = await cartPage.getEditLink();
+    await cartPage.clickEditLink();
+    await page.waitForTimeout(2000)
+    const currentUrl = page.url();
+    expect(currentUrl).toBe('https://magento.softwaretestingboard.com/checkout/cart/configure/id/570202/product_id/1796/')
 })
 
 test('ECA-25 | Verify Functionality of Item Action [Delete] Button',async({ page }) => {
