@@ -10,5 +10,6 @@ export const loginLocators = {
     wrongPassword: '.message-error.error.message',
     forgotPasswordLink: '.action.remind',
     createAccountLink: '.action.create.primary',
-
+    logoutOptions: 'button.action.switch[data-action="customer-menu-toggle"]',
+    logoutButton: 'li.authorization-link[data-label="or"] a[href="https://magento.softwaretestingboard.com/customer/account/logout/"]'
 }

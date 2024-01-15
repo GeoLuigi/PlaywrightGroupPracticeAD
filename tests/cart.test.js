@@ -25,7 +25,9 @@ import {TopsWomenPage} from '../pages/topsWomenPage';
         await loginPage.page.waitForTimeout(1000);
         await page.goto(addUrl)
         await topsWomenPage.selectAntoniaClothing()
+        await loginPage.page.waitForTimeout(1000);
         await topsWomenPage.selectZoeClothing()
+        await loginPage.page.waitForTimeout(1000);
         await topsWomenPage.selectBellaClothing()
         await page.waitForTimeout(2000)
         await page.click('.action.showcart')
@@ -33,11 +35,6 @@ import {TopsWomenPage} from '../pages/topsWomenPage';
         await page.click('a.action.viewcart')
     });
 
-
-test('TEST',async({ page }) => {
-
-
-})
 test('ECA-23 | Verify Display of Purchased Items on Shopping Cart Page',async({ page }) => {
     await page.waitForTimeout(1000);
 
@@ -68,46 +65,87 @@ test('ECA-23 | Verify Display of Purchased Items on Shopping Cart Page',async({ 
 test('ECA-24 | Verify Functionality of Item Action [Edit] Button',async({ page }) => {
     
     await page.waitForTimeout(2000)
-    const editLink = await cartPage.getEditLink();
+    const productItemNameText = await cartPage.getProductItemNameText();
     await cartPage.clickEditLink();
+    await page.waitForTimeout(3000)
+    const pageTitleText = await cartPage.getPageTitleText();
     await page.waitForTimeout(2000)
-    const currentUrl = page.url();
-    expect(currentUrl).toBe('https://magento.softwaretestingboard.com/checkout/cart/configure/id/570202/product_id/1796/')
-})
+    expect(productItemNameText.trim()).toBe(pageTitleText.trim());
 
+})
+// this test is the afterEach
 test('ECA-25 | Verify Functionality of Item Action [Delete] Button',async({ page }) => {
 
 })
 
+//depecrated, this is another page
 test('ECA-26 | Verify Editing Quantity on Attribute Editing Page',async({ page }) => {
 
 })
 
 test('ECA-27 | Verify Display of Summary Box on Shopping Cart Page With the information of the Shipping',async({ page }) => {
+    await page.waitForTimeout(2000)
+    const doesSummaryTitleExist = await cartPage.doesSummaryTitleExist();
+    expect(doesSummaryTitleExist).toBe(true);
 
 })
 
 test('ECA-28 | Verify Update of Subtotal After Editing Quantity of an item and clicking on [Update Shopping Cart] Button',async({ page }) => {
-
+    await page.waitForTimeout(2000)
+    const firstSubTotal = await cartPage.getSubtotalValue();
+    await cartPage.changeQty(3);
+    await cartPage.clickUpdateCartButton();
+    await page.waitForTimeout(5000)
+    const secondSubTotal = await cartPage.getSubtotalValue();
+    expect(secondSubTotal).not.toBe(firstSubTotal);
 })
 
 test('ECA-29 | Verify Display of "More Choices" Section',async({ page }) => {
-
+    await page.waitForTimeout(2000)
+    const isCrossSellBlockExist = await cartPage.doesCrossSellBlockExist();
+    expect(isCrossSellBlockExist).toBeTruthy();
 })
 
 test('ECA-30 | Verify Clicking [Add to Cart] Button of an item on "More Choices" Section it add the item to the cart',async({ page }) => {
+    await page.waitForTimeout(2000)
+    const firstTotal = await cartPage.getCartSubTotalPrice();
+
+    await cartPage.clickAddToCartButton();
+    await page.waitForTimeout(4000)
+    const secondTotal = await cartPage.getCartSubTotalPrice();
+    expect(firstTotal).not.toBe(secondTotal);
 
 })
 
 test('ECA-31 | Verify Clicking [Wish List] Button redirect you to the WishList Page',async({ page }) => {
+    await page.waitForTimeout(2000)
 
+    const desiredUrl = 'https://magento.softwaretestingboard.com/wishlist/index/'
+    let currentUrl = await page.url();
+    
+    while (currentUrl === page.url()) {
+      await cartPage.clickAddToWishlist();
+      await page.waitForTimeout(4000);
+    }
+    await page.waitForTimeout(1000);
+
+    const updatedUrl = await page.url(desiredUrl);
+    expect(updatedUrl).toContain(desiredUrl);
+    
 })
 
 test('ECA-32 | Verify Clicking [Cart Page] Button redirect you to the Cart Page',async({ page }) => {
+    await page.waitForTimeout(2000);
+    let firstCurrentUrl = await page.url();
+    await cartPage.clickAddToCompare();
+    await page.waitForTimeout(2000);
+    let secondCurrentUrl = await page.url();
+    expect(firstCurrentUrl).toBe(secondCurrentUrl);
 
 })
 
 test('ECA-33 | Verify Functionality of [Proceed to Checkout] Button',async({ page }) => {
+    await page.waitForTimeout(2000)
 
     await cartPage.clickProceedToCheckoutButton();
     await page.waitForTimeout(1000)
@@ -116,6 +154,8 @@ test('ECA-33 | Verify Functionality of [Proceed to Checkout] Button',async({ pag
 })
 
 test('ECA-34 | Verify Functionality of [Check Out with Multiple Addresses] Button',async({ page }) => {
+    await page.waitForTimeout(2000)
+
     await cartPage.clickMultiCheckoutLink();
     await page.waitForTimeout(2000)
     const updatedUrl = page.url();
@@ -123,7 +163,14 @@ test('ECA-34 | Verify Functionality of [Check Out with Multiple Addresses] Butto
 })
 
 test('ECA-35 | Verify the correct sum for the subtotal of an item',async({ page }) => {
+    await page.waitForTimeout(2000)
+    const firstSubTotal = await cartPage.getSubtotalValue();
+    const itemPrice = await cartPage.getPriceValue();
+    const itemQty = 1;
+    await page.waitForTimeout(1000)
+    const secondSubTotal = itemPrice * itemQty;
 
+    expect(secondSubTotal).toBe(firstSubTotal);
 })
 
 test('ECA-36 | Verify the correct sum for the subtotal of the Summary Section',async({ page }) => {
@@ -183,7 +230,7 @@ test.afterEach(async ({ page }) => {
     await page.waitForTimeout(3000)
     while (await page.$$('a.action.action-delete').length !== 0 ) {
         let removeButtons = await page.$$('a.action.action-delete');
-        await page.waitForTimeout(1000)
+        await page.waitForTimeout(2000)
         // Itera sobre cada botón y haz clic
         // Itera sobre cada botón y haz clic
         console.log(removeButtons);
@@ -204,4 +251,9 @@ test.afterEach(async ({ page }) => {
         // Asegúrate de que la página se haya cargado completamente antes de continuar
         await page.waitForLoadState('load');
     }
+    await page.waitForTimeout(2000)
+    await loginPage.clickChangeButton()
+    await page.waitForTimeout(2000)
+    await loginPage.clickSignOutLink()
+
 });

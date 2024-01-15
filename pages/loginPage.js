@@ -13,6 +13,9 @@ export class LoginPage {
         this.wrongPassword = loginLocators.wrongPassword;
         this.forgotPasswordLink = loginLocators.forgotPasswordLink;
         this.createAccountLink = loginLocators.createAccountLink;
+        this.logoutOptions = loginLocators.logoutOptions;
+        this.logoutButton = loginLocators.logoutButton;
+
     }
     async fillLoginForm(emailField, passwordField) {
         await this.page.fill(this.emailField, emailField);
@@ -57,5 +60,12 @@ export class LoginPage {
 
     async clickCreateAccountLink() {
         await this.page.click(this.createAccountLink);
+    }
+    async clickChangeButton() {
+        await this.page.click(this.logoutOptions);
+    }
+    
+    async clickSignOutLink() {
+        await this.page.click(this.logoutButton);
     }
 }

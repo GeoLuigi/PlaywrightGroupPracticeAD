@@ -12,6 +12,17 @@ export class CartPage {
         this.orderTotal = cartLocators.orderTotal;
         this.editLink = cartLocators.editLink;
         this.editButton = cartLocators.editButton;
+        this.itemText = cartLocators.itemText;
+        this.editTittle = cartLocators.editTittle;
+        this.summaryTitle = cartLocators.summaryTitle;
+        this.qtyInput = cartLocators.qtyInput;
+        this.priceValue = cartLocators.priceValue;
+        this.subtotalItemValue = cartLocators.subtotalItemValue;
+        this.updateCartButton = cartLocators.updateCartButton;
+        this.moreChoices = cartLocators.moreChoices;
+        this.addItem = cartLocators.addItem;
+        this.wishListButton = cartLocators.wishListButton;
+        this.cartButtonItem = cartLocators.cartButtonItem;
     }
 
     async clickProceedToCheckoutButton() {
@@ -67,4 +78,59 @@ export class CartPage {
     async clickEditLink(){
         await this.page.click(this.editButton);
     }
+    async getPageTitleText() {
+        const pageTitleElement = await this.page.$(this.editTittle);
+        return await pageTitleElement.textContent();
+    }
+
+    async getProductItemNameText() {
+        const productItemNameElement = await this.page.$(this.itemText);
+        return await productItemNameElement.textContent();
+    }
+    
+    async doesSummaryTitleExist() {
+        const summaryTitleElement = await this.page.$(this.summaryTitle);
+        return !!summaryTitleElement;
+    }
+
+    async changeQty(newQty) {
+        await this.page.fill(this.qtyInput, newQty.toString());
+    }
+
+    async getPriceValue() {
+        const priceElement = await this.page.$(this.priceValue);
+        const priceText = await priceElement.textContent();
+        return parseFloat(priceText.replace('$', ''));
+    }
+
+    async getSubtotalValue() {
+        const subtotalElement = await this.page.$(this.subtotalItemValue);
+        const subtotalText = await subtotalElement.textContent();
+        return parseFloat(subtotalText.replace('$', ''));
+    }
+
+    async clickUpdateCartButton() {
+        await this.page.click(this.updateCartButton);
+    }
+
+    async doesCrossSellBlockExist() {
+        const crossSellBlockElement = await this.page.$(this.moreChoices);
+        return !!crossSellBlockElement;
+    }
+
+    async clickAddToCartButton() {
+        await this.page.click(this.addItem);
+    }
+
+    async clickAddToWishlist() {
+        const allWishlistButtons = await this.page.$$(this.wishListButton);
+    
+        const lastWishlistButton = allWishlistButtons[allWishlistButtons.length - 1];
+        await lastWishlistButton.click();
+    }
+
+    async clickAddToCompare() {
+        await this.page.click(this.cartButtonItem);
+    }
+    
 }
