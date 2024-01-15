@@ -88,8 +88,9 @@ test.describe('Tops Women Page tests', () => {
 
     test('ECA-51 | Verify that clicking [Proceed to Checkout] correctly redirects to the shipping page', async ({ page }) => {
 
-        const waitTime = 2000
+        const waitTime = 3000
 
+        await page.waitForTimeout(waitTime)
         await topsWomenPage.selectAntoniaClothing()
         await page.waitForTimeout(waitTime)
         await topsWomenPage.clickOnCartBtn()
