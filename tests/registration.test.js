@@ -17,6 +17,8 @@ test.beforeEach(async ({ page }) => {
 
 test('ECA-3 | Verify Mandatory Fields on Registration Page form',async({ page }) => { 
     
+    await page.waitForTimeout(2000)
+
     // Obtener los valores de aria-required
     const ariaRequiredValues = await registrationPage.getMandatoryFieldsAriaRequired();
     // Verificar que al menos un campo sea requerido
@@ -48,7 +50,7 @@ test('ECA-5 | Verify Handling of Invalid Email After Clicking [Create an Account
 
 test('ECA-6 | Verify Password Field and Dynamic Strength Indicator', async({ page }) => {
     
-    
+    await page.waitForTimeout(2000)
     let passwordStrengthLabel = await registrationPage.getPasswordStrengthText();
     await registrationPage.fillRegistrationForm('','','','','');
     expect(passwordStrengthLabel).toBe('No Password');
@@ -56,23 +58,23 @@ test('ECA-6 | Verify Password Field and Dynamic Strength Indicator', async({ pag
     await registrationPage.fillRegistrationForm('','','','Hola','');
     passwordStrengthLabel = await registrationPage.getPasswordStrengthText();
     
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(2000);
     expect(passwordStrengthLabel).toBe('Weak');
     
     await registrationPage.fillRegistrationForm('','','','.Hola123','');
     passwordStrengthLabel = await registrationPage.getPasswordStrengthText();
-    //page.waitForTimeout(1000);
+    await page.waitForTimeout(2000)
     expect(passwordStrengthLabel).toBe('Medium');
 
     
     await registrationPage.fillRegistrationForm('','','','.Hola123.','');
     passwordStrengthLabel = await registrationPage.getPasswordStrengthText();
-    //page.waitForTimeout(1000);
+    await page.waitForTimeout(2000)
     expect(passwordStrengthLabel).toBe('Strong');
     
     await registrationPage.fillRegistrationForm('','','','.Hola123.123','');
     passwordStrengthLabel = await registrationPage.getPasswordStrengthText();
-    //page.waitForTimeout(1000);
+    await page.waitForTimeout(2000)
     expect(passwordStrengthLabel).toBe('Very Strong');
     
     
@@ -81,6 +83,7 @@ test('ECA-6 | Verify Password Field and Dynamic Strength Indicator', async({ pag
 test('ECA-7 | Verify Handling of Invalid Password', async({ page }) => {
     
     await registrationPage.fillRegistrationForm('','','','ola','');
+    await page.waitForTimeout(2000)
     const passwordErrorMessage = await registrationPage.getPasswordErrorMessage(); // Debes llamarlo como una función asíncrona
     expect(passwordErrorMessage).toBe('Minimum length of this field must be equal or greater than 8 symbols. Leading and trailing spaces will be ignored.');})
 

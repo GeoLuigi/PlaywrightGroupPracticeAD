@@ -207,12 +207,14 @@ test('ECA-36 | Verify the correct sum for the subtotal of the Summary Section',a
 })
 
 test('ECA-37 | Verify the correct sum for the "Order Total" of the Summary Section',async({ page }) => {
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(2000);
     const CartSubTotal = await cartPage.getCartSubTotalPrice();
 
     // Obtener los montos de descuento, envío y total
     const discountAmount = await cartPage.getDiscountAmount(page);
     const shippingAmount = await cartPage.getShippingAmount(page);
+    await page.waitForTimeout(2000)
+
     const orderTotal = await cartPage.getOrderTotal(page);
 
     // Sumar el descuento y el envío

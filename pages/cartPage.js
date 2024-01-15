@@ -63,9 +63,6 @@ export class CartPage {
     
     async getOrderTotal(page) {
         const orderTotalElement = await page.$(cartLocators.orderTotal);
-        if (!orderTotalElement) {
-            return 0;
-        }
         const orderTotalText = await orderTotalElement.textContent();
         return parseFloat(orderTotalText.replace('$', '')) || 0;
     }
