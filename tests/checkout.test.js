@@ -1,9 +1,11 @@
 import { test, expect } from '@playwright/test'
 import { dataHelper as helper} from '../helpers/dataHelper'
+import { checkoutLocators as checkLocators } from '../locators/checkoutLocators'
 import { CheckoutPage } from '../pages/checkoutPage'
 import { RegistrationPage } from '../pages/registrationPage'
 import { TopsWomenPage } from '../pages/topsWomenPage'
 import { generateRandomFirstName, generateRandomLastName, generateRandomEmail, generateRandomPassword } from '../helpers/faker'
+import exp from 'constants'
 
 test.beforeEach(async ({ page }, testInfo) => {
     const registrationPage = new RegistrationPage(page)
@@ -13,14 +15,14 @@ test.beforeEach(async ({ page }, testInfo) => {
 
     testInfo.setTimeout(200000)
 
-    helper.firstName = generateRandomFirstName()
-    helper.lastName = generateRandomLastName()
-    helper.email = generateRandomEmail()
-    helper.password = generateRandomPassword()
+    const firstName = generateRandomFirstName()
+    const lastName = generateRandomLastName()
+    const email = generateRandomEmail()
+    const password = generateRandomPassword()
 
     // Registration Page
     await page.goto(registrationUrl)
-    await registrationPage.fillRegistrationForm(helper.firstName,helper.lastName,helper.email,helper.password, helper.password)
+    await registrationPage.fillRegistrationForm( firstName, lastName, email, password, password)
     await registrationPage.clickCreateAccountButton()
 
     // Purchase Page
@@ -37,8 +39,20 @@ test.beforeEach(async ({ page }, testInfo) => {
     await page.waitForTimeout(5000)
 })
 
-test('Checkout Test', async ({ page }) => {
+test('ECA-55 | Verify successful entry of complete mandatory Shipping Address details', async ({ page }) => {
 
     const checkoutPage = new CheckoutPage(page)
-    checkoutPage.registerAddress(helper.address, helper.city, helper.zipCode, helper.phoneNumber)
+
+    await page.waitForSelector(checkLocators.cartSummaryItemsCount)
+    const cartItemCountText = await page.$eval(checkLocators.cartSummaryItemsCount, element => element.textContent)
+    expect(cartItemCountText).toContain('3')
+
+    const pageTitle = await page.title()
+    expect(pageTitle).toBe('Checkout')
+
+    await checkoutPage.registerAddress(helper.address, helper.city, helper.zipCode, helper.phoneNumber)
+    await page.waitForTimeout(5000)
+
+    const currentUrl = page.url()
+    expect(currentUrl).toBe('https://magento.softwaretestingboard.com/checkout/#payment')
 })

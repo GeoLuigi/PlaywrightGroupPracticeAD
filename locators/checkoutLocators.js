@@ -4,4 +4,5 @@ export const checkoutLocators = {
     regionList: 'select[name="region_id"]',
     zipCodeField: 'input[name="postcode"]',
     phoneNumberField: 'input[name="telephone"]',
+    cartSummaryItemsCount: 'span[data-bind="text: getCartSummaryItemsCount()"]',
 }
