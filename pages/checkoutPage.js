@@ -15,4 +15,8 @@ export class CheckoutPage {
         await this.page.getByLabel('Fixed').check()
         await this.page.getByRole('button', { name: 'Next' }).click()
     }
+
+    async clickOnPlaceOrderBtn(){
+        await this.page.click('button.action.primary.checkout')
+    }
 }
