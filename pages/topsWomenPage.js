@@ -67,4 +67,8 @@ export class TopsWomenPage {
     async clickOnCheckoutBtn() {
         await this.page.click(locators.checkoutBtn)
     }
+
+    async getSortingList() {
+        return this.page.$('#sorter')
+    }
 }
